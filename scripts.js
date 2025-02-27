@@ -1,44 +1,53 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const passwordField = document.getElementById("password");
-    const copyButton = document.getElementById("copy");
-    const generateButton = document.getElementById("generate");
-    const lengthSlider = document.getElementById("length");
-    const lengthValue = document.getElementById("length-value");
-    const uppercaseCheckbox = document.getElementById("uppercase");
-    const lowercaseCheckbox = document.getElementById("lowercase");
-    const numbersCheckbox = document.getElementById("numbers");
-    const symbolsCheckbox = document.getElementById("symbols");
+const passwordField = document.getElementById("password");
+const copyButton = document.getElementById("copy");
+const generateButton = document.getElementById("generate");
+const lengthSlider = document.getElementById("length");
+const lengthValue = document.getElementById("length-value");
+const uppercaseCheckbox = document.getElementById("uppercase");
+const lowercaseCheckbox = document.getElementById("lowercase");
+const numbersCheckbox = document.getElementById("numbers");
+const symbolsCheckbox = document.getElementById("symbols");
 
-    const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
-    const numbers = "0123456789";
-    const symbols = "!@#$%^&*()_+[]{}|;:,.<>?";
+const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+const numberChars = "0123456789";
+const symbolChars = "!@#$%^&*()_+{}[]<>?/|";
 
-    function generatePassword() {
-        let characters = "";
-        if (uppercaseCheckbox.checked) characters += uppercaseLetters;
-        if (lowercaseCheckbox.checked) characters += lowercaseLetters;
-        if (numbersCheckbox.checked) characters += numbers;
-        if (symbolsCheckbox.checked) characters += symbols;
+// Actualizar valor de longitud
+lengthSlider.addEventListener("input", () => {
+    lengthValue.textContent = lengthSlider.value;
+});
 
-        let password = "";
-        for (let i = 0; i < lengthSlider.value; i++) {
-            password += characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-        passwordField.value = password;
+// Función para generar contraseña
+function generatePassword() {
+    let chars = "";
+    let password = "";
+    if (uppercaseCheckbox.checked) chars += uppercaseChars;
+    if (lowercaseCheckbox.checked) chars += lowercaseChars;
+    if (numbersCheckbox.checked) chars += numberChars;
+    if (symbolsCheckbox.checked) chars += symbolChars;
+
+    if (chars.length === 0) {
+        alert("Selecciona al menos un tipo de carácter.");
+        return;
     }
 
-    generateButton.addEventListener("click", generatePassword);
+    for (let i = 0; i < lengthSlider.value; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        password += chars[randomIndex];
+    }
+    passwordField.value = password;
+}
 
-    copyButton.addEventListener("click", function () {
-        passwordField.select();
-        document.execCommand("copy");
-        alert("Contraseña copiada al portapapeles");
-    });
-
-    lengthSlider.addEventListener("input", function () {
-        lengthValue.textContent = lengthSlider.value;
-    });
-
-    generatePassword();
+// Copiar contraseña al portapapeles
+copyButton.addEventListener("click", () => {
+    passwordField.select();
+    document.execCommand("copy");
+    alert("Contraseña copiada al portapapeles");
 });
+
+// Evento para generar contraseña
+generateButton.addEventListener("click", generatePassword);
+
+// Generar una contraseña por defecto al cargar la página
+generatePassword();
