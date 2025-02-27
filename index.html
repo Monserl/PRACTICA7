@@ -8,24 +8,27 @@
 
 </head>
 <body>
-    
     <div class="container">
-        <h2>Generador de Contraseñas</h2>
-        <div class="password-container">
+        <h1>Generador de Contraseñas</h1>
+        <div class="password-display">
             <input type="text" id="password" readonly>
-            <button id="copy">📋</button>
+            <button id="copy-btn">Copiar</button>
         </div>
-        <div class="settings">
-            <label for="length">Longitud: <span id="length-value">12</span></label>
-            <input type="range" id="length" min="8" max="24" value="12">
-            <label><input type="checkbox" id="uppercase" checked> Mayúsculas</label>
-            <label><input type="checkbox" id="lowercase" checked> Minúsculas</label>
-            <label><input type="checkbox" id="numbers" checked> Números</label>
-            <label><input type="checkbox" id="symbols" checked> Símbolos</label>
+        <div class="options">
+            <label for="length">Longitud de la contraseña:</label>
+            <input type="number" id="length" min="8" max="50" value="12">
+            <label>
+                <input type="checkbox" id="uppercase" checked> Incluir mayúsculas
+            </label>
+            <label>
+                <input type="checkbox" id="numbers" checked> Incluir números
+            </label>
+            <label>
+                <input type="checkbox" id="symbols" checked> Incluir símbolos
+            </label>
         </div>
-        <button id="generate">Generar Contraseña</button>
+        <button id="generate-btn">Generar Contraseña</button>
     </div>
     <script src="script.js"></script>
-
 </body>
 </html>
