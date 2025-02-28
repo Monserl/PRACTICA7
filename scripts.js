@@ -10,17 +10,23 @@ document.getElementById('generate-btn').addEventListener('click', () => {
     updateStrength(password);
 });
 
-document.getElementById('copy-btn').addEventListener('click', async () => {
+document.getElementById('copy-btn').addEventListener('click', async() => {
     const passwordField = document.getElementById('password');
     
+    if (!passwordField.value) {
+        alert('No hay ninguna contraseña para copiar.');
+        return;
+    }
+
     try {
         await navigator.clipboard.writeText(passwordField.value);
         alert('Contraseña copiada al portapapeles');
     } catch (err) {
         console.error('Error al copiar la contraseña: ', err);
-        alert('No se pudo copiar la contraseña');
+        alert('No se pudo copiar la contraseña. Inténtalo de nuevo.');
     }
-});
+    }
+);
 
 document.getElementById('length').addEventListener('input', (e) => {
     document.getElementById('length-value').textContent = e.target.value;
